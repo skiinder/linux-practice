@@ -1,0 +1,31 @@
+name: Base Image
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - base-image/**
+
+env:
+  REGISTRY: registry.cn-zhangjiakou.aliyuncs.com
+  NAMESPACE: linux-practice
+  IMAGE: base-image
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Build Image
+        run: |
+          TAG=${{ github.ref_name }}
+          docker login \
+            --username=${{ secrets.DOCKER_USERNAME }} \
+            --password=${{ secrets.DOCKER_PASSWORD }} \
+            ${REGISTRY}
+          cd base-image
+          docker build . --file Dockerfile \
+            --tag ${REGISTRY}/${NAMESPACE}/${IMAGE}:${TAG} \
+            --tag ${REGISTRY}/${NAMESPACE}/${IMAGE}:latest
+          docker push ${REGISTRY}/${NAMESPACE}/${IMAGE}:${TAG}
+          docker push ${REGISTRY}/${NAMESPACE}/${IMAGE}:latest
