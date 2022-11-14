@@ -4,7 +4,7 @@ function current_ts() {
   echo "$(date '+%s')${NANO:0:3}"
 }
 function submit() {
-  HOST="${HOST:-192.168.10.100}"
+  HOST="${HOST:-http://192.168.10.100}"
   ID="001"
   END_TIME="$(current_ts)"
   TIME="$[END_TIME-START_TIME]"
@@ -14,7 +14,7 @@ function submit() {
   else
     RESULT="false"
   fi
-  curl -X POST http://${HOST} \
+  curl -X POST ${HOST} \
      -H 'Content-Type: application/json' \
      -d "{\"class\": \"$CLASS\",\"name\": \"$USERNAME\",\"id\": \"$ID\",\"result\": $RESULT,\"ts\": $END_TIME,\"time\": $TIME}"
   exit
