@@ -1,7 +1,7 @@
 trap "exit" 2 3 20
 function current_ts() {
-  NANO="$(date '+%N')"
-  echo "$(date '+%s')${NANO:0:3}"
+  NANO="$(date +%s%N)"
+  echo "${NANO:0:-6}"
 }
 function submit() {
   HOST="${HOST:-http://192.168.10.100}"
