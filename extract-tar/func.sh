@@ -19,7 +19,7 @@ function submit() {
   curl -X POST ${HOST} \
      -H 'Content-Type: application/json' \
      -d "{\"token\": \"$TOKEN\",\"question_id\": \"$ID\",\"question_type\": linux,\"result\": $RESULT}"
-  pause
+  sleep 5
   exit
 }
 clear
