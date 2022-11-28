@@ -5,7 +5,7 @@ function current_ts() {
 }
 function submit() {
   HOST="${HOST:-http://192.168.10.100}"
-  ID="1"
+  ID="54"
   END_TIME="$(current_ts)"
   TIME="$[END_TIME-START_TIME]"
   if [ -d "/opt/module/zookeeper" ] && [ "$(du -bd0 /opt/module/zookeeper| awk '{print $1}')" -eq "36826780" ]
@@ -19,6 +19,7 @@ function submit() {
   curl -X POST ${HOST} \
      -H 'Content-Type: application/json' \
      -d "{\"token\": \"$TOKEN\",\"question_id\": \"$ID\",\"question_type\": linux,\"result\": $RESULT}"
+  pause
   exit
 }
 clear
