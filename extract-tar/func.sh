@@ -8,7 +8,7 @@ function submit() {
   ID="54"
   END_TIME="$(current_ts)"
   TIME="$[END_TIME-START_TIME]"
-  if [ -d "/opt/module/zookeeper" ] && [ "$(du -bd0 /opt/module/zookeeper| awk '{print $1}')" -eq "36826780" ]
+  if [ -d "/opt/module/zookeeper" ] && [ "$(find /opt/module/zookeeper -type f | wc -l)" -eq "1520" ]
   then
     echo "结果正确，用时${TIME}ms。"
     RESULT="true"
