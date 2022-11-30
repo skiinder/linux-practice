@@ -18,7 +18,7 @@ function submit() {
   fi
   curl -X POST ${HOST} \
      -H 'Content-Type: application/json' \
-     -d "{\"token\": \"$TOKEN\",\"question_id\": \"$ID\",\"question_type\": linux,\"result\": $RESULT}"
+     -d "{\"token\": \"$TOKEN\",\"question_id\": \"$ID\",\"question_type\": \"linux\",\"result\": $RESULT}"
   sleep 5
   exit
 }
