@@ -1,6 +1,6 @@
 FROM centos:7
 RUN yum install -y epel-release && \
-    yum install -y sudo tini net-tools vim psmisc nc rsync lrzsz ntp libzstd openssl-static && \
+    yum install -y sudo tini net-tools vim psmisc nc rsync lrzsz ntp libzstd openssl-static git && \
     yum clean all && \
     useradd atguigu && \
     usermod -aG wheel atguigu && \
