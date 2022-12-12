@@ -5,28 +5,27 @@ function current_ts() {
 }
 function submit() {
   HOST="${HOST:-http://192.168.10.100}"
-  ID="001"
+  ID="54"
   END_TIME="$(current_ts)"
   TIME="$[END_TIME-START_TIME]"
-  if [ -d "/opt/module/zookeeper" ] && [ "$(du -bd0 /opt/module/zookeeper| awk '{print $1}')" -eq "36826780" ]
+  if [ -d "/opt/module/zookeeper" ] && [ "$(find /opt/module/zookeeper -type f | wc -l)" -eq "1520" ]
   then
+    echo "结果正确，用时${TIME}ms。"
     RESULT="true"
   else
+    echo "结果错误，用时${TIME}ms。"
     RESULT="false"
   fi
   curl -X POST ${HOST} \
      -H 'Content-Type: application/json' \
-     -d "{\"class\": \"$CLASS\",\"name\": \"$USERNAME\",\"id\": \"$ID\",\"result\": $RESULT,\"ts\": $END_TIME,\"time\": $TIME}"
+     -d "{\"token\": \"$TOKEN\",\"question_id\": \"$ID\",\"question_type\": \"linux\",\"result\": $RESULT}"
+  sleep 5
   exit
 }
 clear
-while [ -z "$CLASS" ]
+while [ -z "$TOKEN" ]
 do
-  read -p "请输入班级（例如：220905）：" CLASS
-done
-while [ -z "$USERNAME" ]
-do
-  read -p "请输入姓名（例如：张三）：" USERNAME
+  read -p "请输入网站获取的TOKEN：" TOKEN
 done
 clear
 cat << 'EOF'
